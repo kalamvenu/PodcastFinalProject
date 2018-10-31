@@ -22,6 +22,12 @@
     @include ms-lgPush1;
   }
 
+  .border{
+    border: 1px solid white;
+    padding: 10px;
+  
+  }
+
   .title {
     @include ms-font-xl;
     @include ms-fontColor-white;
