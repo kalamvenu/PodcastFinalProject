@@ -22,24 +22,46 @@
     @include ms-lgPush1;
   }
 
+
   .border{
     border: 1px solid white;
     padding: 10px;
+    width: 123%;
+    margin-top: 25%;
   
   }
 
+  .image{
+    position: relative;
+    display: inline-block;
+    top: -70px;
+    height: 80px;
+    padding: 10px 10px;
+  }
+
+  #scrollDescription{ 
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  #scrollComments{ 
+   
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
   .title {
-    @include ms-font-xl;
+    @include ms-font-m;
     @include ms-fontColor-white;
   }
 
   .subTitle {
-    @include ms-font-l;
+    @include ms-font-s;
     @include ms-fontColor-white;
   }
 
   .description {
-    @include ms-font-l;
+    @include ms-font-s;
     @include ms-fontColor-white;
   }
 
