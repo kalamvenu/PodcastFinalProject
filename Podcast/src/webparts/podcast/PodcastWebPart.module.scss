@@ -16,6 +16,20 @@
     padding: 20px;
   }
 
+  #podcasticon{
+    font-size:24px;
+    padding-top: -15px;
+    position: absolute;
+     color: #a80000;
+      padding-left: 95%;
+  }
+
+  #podcastlabel{
+    font-size:x-small;
+    position:absolute;
+    padding-left: 78%;
+  }
+
   .column {
     @include ms-Grid-col;
     @include ms-lg10;
@@ -23,7 +37,6 @@
     @include ms-xlPush2;
     @include ms-lgPush1;
   }
-
 
   .border{
     border: 1px solid white;
@@ -41,15 +54,68 @@
     padding: 10px 10px;
   }
 
+  .title {
+    @include ms-font-m;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-s;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-s;
+    @include ms-fontColor-white;
+  }
+
+      #ThumbsUp{
+        color:gold;
+      }
+      #CommentsIcon{
+        color:gold;
+      }
+     
+    .hyperlinks{
+      color:white;
+      text-decoration: underline;
+      font-style: italic;
+     }
+
+     .modal-header{
+      background:steelblue;
+     }
+
+     .modal-body{
+      background-color:bisque;
+     }
+
   #scrollDescription{ 
     max-height: 300px;
     overflow-y: auto;
+    background-color: black;
+    color:antiquewhite;
   }
 
   #scrollComments{ 
    
     max-height: 300px;
     overflow-y: auto;
+   background-color:antiquewhite;
+  }
+
+  #popupcomments{
+    background-color: lightslategrey;
+     color:white;
+  }
+
+  .modal-footer{
+    background-color:steelblue;
+  }
+
+  .panel-body{
+    background-color:lightgray;
+    color:black;
   }
 
 /*Comment List styles*/
@@ -130,20 +196,6 @@
 }
 
 
-  .title {
-    @include ms-font-m;
-    @include ms-fontColor-white;
-  }
-
-  .subTitle {
-    @include ms-font-s;
-    @include ms-fontColor-white;
-  }
-
-  .description {
-    @include ms-font-s;
-    @include ms-fontColor-white;
-  }
 
   .button {
     // Our button
