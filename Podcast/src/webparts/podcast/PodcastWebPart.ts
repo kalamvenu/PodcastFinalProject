@@ -13,6 +13,8 @@ import * as bs from 'bootstrap';
 require('bootstrap');
 import * as pnp from 'sp-pnp-js';
 import { CurrentUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
+import { Log } from '@microsoft/sp-core-library'; 
+const LOG_SOURCE: string = 'SPFxLogger';  
 
 export interface IPodcastWebPartProps {
   description: string;
@@ -342,6 +344,15 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
       ]
     }
   }
+
+  public onInit(): Promise<void> {
+
+    Log.info(LOG_SOURCE, 'Activated HelloWorldFieldCustomizer with properties:');
+    Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
+    Log.info(LOG_SOURCE, `The following string should be equal: "HelloWorld" and "${strings.PropertyPaneDescription}"`);
+    return Promise.resolve<void>();
+  }
+  
 }
 
 
