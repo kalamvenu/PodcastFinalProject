@@ -1,4 +1,8 @@
-import { Version } from '@microsoft/sp-core-library';
+import {
+  Version,
+  Log,
+  ServiceScope
+} from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -13,8 +17,7 @@ import * as bs from 'bootstrap';
 require('bootstrap');
 import * as pnp from 'sp-pnp-js';
 import { CurrentUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
-import { Log } from '@microsoft/sp-core-library'; 
-const LOG_SOURCE: string = 'SPFxLogger';  
+const LOG_SOURCE: string = 'PodcastWebPart';
 
 export interface IPodcastWebPartProps {
   description: string;
@@ -29,6 +32,25 @@ var AbsoluteUrl;
 export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPartProps> {
 
   public render(): void {
+
+    // this.context.statusRenderer.clearError(this.domElement);
+    // this.context.statusRenderer.displayLoadingIndicator(this.domElement, strings.Loading);
+    // Log.verbose('SpFxNuggets', 'Invoking render');
+
+    // this._webInfoProvider.getWebInfo().then((webInfo: IWebInfo) => {
+    //   if (this.properties.fail) {
+    //     throw new Error('Mayday');
+    //   }
+    //   Log.info('SpFxNuggets', 'Service OK', this.context.serviceScope);
+    //   this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+    //   this.context.domElement.innerHTML = `<h1>${webInfo.title}</h1>`;
+
+    // }).catch((err) => {
+    //   Log.error('SpFxNuggets', err);
+    //   this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+    //   this.context.statusRenderer.renderError(this.domElement, err);
+    // });
+
     AbsoluteUrl = this.context.pageContext.web.absoluteUrl;
     var contextuser = this.context.pageContext.user.email;
 
@@ -80,27 +102,49 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
                             <div class="row">
                                 <div class="col-md-3">
                                     <img src="" id="popupimage" class="img-responsive" alt="Cinque Terre" > 
-                                    <p id ="popuprole"></p>
+                                    <p id ="popuprole" class="bg-success"></p>
                                 </div>
-                               <div class="col-md-3 bg-danger" id= "${styles.scrollDescription}" >
-                                       Description
+                               <div class="col-md-3 bg-danger">
+                                    <div class="row">
+                                    <p class="bg-primary">Description.</p>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col" id= "${styles.scrollDescription}" >
                                     <p id = "popupdescription"></p>
+                                    </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 ml-auto col bg-success" id="${styles.scrollComments}">                                 
-                                       <div class="${styles.popupcomments}" id = "popupcomments">
-                                        comments
-                                            <section class="${styles["comment-list"]} comment-list" id="commentlist">
-                                                  <!-- dynamic comments -->
-                                             </section>
-                                        </div>                                        
-                                              <div class="widget-area no-padding blank">
-                                                  <div class="status-upload">
-                                                    <form>
-                                                    <textarea id="CommentTextBox" placeholder="Post Your Comment" ></textarea>                                                  
-                                                   <button type="button" id="SubmitComment" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
-                                                 </form>
-                                                </div> <!-- Status Upload  -->
-                                               </div>   <!-- Widget Area -->
+                                <div class="col-md-6 ml-auto col bg-success">  
+                                      <div class="row">
+                                      <p class="bg-info">comments.</p>
+                                      </div>  
+                                        <div class="row">        
+                                              <div class="col" id="${styles.scrollComments}">                       
+                                                    <div class="${styles.popupcomments}" id = "popupcomments">
+                                                      
+                                                          <section class="${styles["comment-list"]} comment-list" id="commentlist">
+                                                                <!-- dynamic comments -->
+                                                          </section>
+                                                      </div>   
+
+                                                      <div class="widget-area no-padding blank">
+                                                      <div class="status-upload">
+                                                        <form>
+                                                        <div class="row"> 
+                                                        <div class="col-md-9">
+                                                        <textarea id="CommentTextBox" style="width:100%;" placeholder="Post Your Comment" ></textarea>                                                  
+                                                        </div> 
+                                                        <div class="col">
+                                                        <button type="button" id="SubmitComment" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+                                                        </div> 
+                                                        </div> 
+                                                        </form>
+                                                    </div> <!-- Status Upload  -->
+                                                   </div>   <!-- Widget Area -->
+                                                </div>   
+                                             
+                                          </div>     
+                                              
                                  </div>
                             </div>
                          </div>
@@ -169,24 +213,36 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
 
       call.done(function (data, textStatus, jqXHR) {
 
-        if (data.d.results.length > 0) {
-          PodcastUser = data.d.results[0].Title;
-          PodcastId = data.d.results[0].Id;
-          $('#image').attr("src", data.d.results[0].URL.Url);
-          $('#Title').text(data.d.results[0].Title);
-          $('#Role').text(data.d.results[0].Role);
-          $('#Description').text((data.d.results[0].Description).substr(0, 50) + "...");
 
-          //assigning the data to the popup
-          $('.modal-title').text(data.d.results[0].Title);
-          $('#popuprole').text(data.d.results[0].Role);
-          $('#popupdescription').text(data.d.results[0].Description);
+        PodcastUser = data.d.results[0].Title;
+        PodcastId = data.d.results[0].Id;
+        if (data.d.results[0].URL != null) {
+          $('#image').attr("src", data.d.results[0].URL.Url);
           $('#popupimage').attr("src", data.d.results[0].URL.Url);
         }
         else {
-          alert("no results to display");
+          $('#image').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
+          $('#popupimage').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
         }
-
+        $('#Title').text(data.d.results[0].Title);
+        if (data.d.results[0].Role != null) {
+          $('#Role').text(data.d.results[0].Role);
+          $('#popuprole').text(data.d.results[0].Role);
+        }
+        else {
+          $('#Role').text("Role is not available");
+          $('#popuprole').text("Role is not available");
+        }
+        if (data.d.results[0].Description != null) {
+          $('#Description').text((data.d.results[0].Description).substr(0, 50) + "...");
+          $('#popupdescription').text(data.d.results[0].Description);
+        }
+        else {
+          $('#Description').text("there is no Description for this person");
+          $('#popupdescription').text(" there is no Description for this person available in the list ");
+        }
+        //assigning the data to the popup
+        $('.modal-title').text(data.d.results[0].Title);
       });
 
       call.fail(function (jqXHR, textStatus, errorThrown) {
@@ -345,14 +401,21 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
     }
   }
 
-  public onInit(): Promise<void> {
+  // public onInit(): Promise<void> {
 
-    Log.info(LOG_SOURCE, 'Activated HelloWorldFieldCustomizer with properties:');
-    Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
-    Log.info(LOG_SOURCE, `The following string should be equal: "HelloWorld" and "${strings.PropertyPaneDescription}"`);
-    return Promise.resolve<void>();
-  }
-  
+  //   Log.info(LOG_SOURCE, 'PodcastWebPart');
+  //   Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
+  //   Log.info(LOG_SOURCE, `Access the strings as "${strings.BasicGroupName}"`);
+  //   Log.verbose("HelloWorld", "Here is a verbose log", this.context.serviceScope);
+
+  //   Log.info("HelloWorld", "Here is an informational message.", this.context.serviceScope);
+
+  //   Log.warn("HelloWorld", "Oh Oh, this might be bad", this.context.serviceScope);
+
+  //   Log.error("HelloWorld", new Error("Oh No!  Error!  Ahhhhhh!!!!"), this.context.serviceScope);
+  //   return Promise.resolve<void>();
+  // }
+
 }
 
 
