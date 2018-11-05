@@ -58,7 +58,7 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
                 <div class="${ styles.column}">   <!-- column -->
                   <div style="text-align:center"  class="${styles.border}">    <!-- border-->
                       <div class="${styles.image}">
-                      <img src="" class="img-responsive" id="image" alt="Cinque Terre" width="150" height="100">
+                      <img src="" class="img-responsive" id="Image" alt="Cinque Terre" width="150" height="100">
                       </div>
                     <p class="${ styles.title}" id="Title" style="font-size: larger;font-weight: lighter;"></p>
                     <p class="${ styles.subTitle}" id="Role" style="font-size: small;font-weight: lighter;font-style: italic;"></p>
@@ -73,10 +73,10 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
                   </div>                              <!-- column -->
                 </div>                                <!-- row -->
 
-        <!-- The Modal -->
-     <div class="modal fade" id="ReadMorePodCast">
-          <div class="modal-dialog modal-lg">
-              <div class="modal-content" id="Modalcontent">
+             <!-- The Modal -->
+             <div class="modal fade" id="ReadMorePodCast">
+               <div class="modal-dialog modal-lg">
+                  <div class="modal-content" id="Modalcontent">
                       <!-- Modal Header -->
                       <div class="${styles["modal-header"]} modal-header" id="Modalheader">
                       <h4 class="modal-title"> </h4>
@@ -87,46 +87,46 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img src="" id="popupimage" class="img-responsive" alt="Cinque Terre" >
-                                    <p id ="popuprole" class="bg-success"></p>
+                                    <img src="" id="PopUpImage" class="img-responsive" alt="Cinque Terre" >
+                                    <p id ="PopUpRole" class="bg-success"></p>
                                 </div>
                                <div class="col-md-3 bg-danger">
                                     <div class="row">
-                                    <p class="bg-primary">Description.</p>
+                                     <p class="bg-primary">Description.</p>
                                     </div>
                                     <div class="row">
-                                    <div class="col" id= "${styles.scrollDescription}" >
-                                    <p id = "popupdescription"></p>
-                                    </div>
+                                     <div class="col" id= "${styles.scrollDescription}" >
+                                     <p id = "PopUpDescription"></p>
+                                     </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 ml-auto col bg-success">
                                       <div class="row">
                                       <p class="bg-info">comments.</p>
                                       </div>
-                                        <div class="row">
-                                              <div class="col" id="${styles.scrollComments}">
-                                                    <div class="${styles.popupcomments}" id = "popupcomments">
-                                                          <section class="${styles["comment-list"]} comment-list" id="commentlist">
-                                                                <!-- dynamic comments -->
-                                                          </section>
-                                                      </div>
-                                                      <div class="widget-area no-padding blank">
-                                                      <div class="status-upload">
-                                                        <form>
-                                                        <div class="row">
+                                       <div class="row">
+                                         <div class="col" id="${styles.scrollComments}">
+                                            <div class="${styles.popupcomments}" id = "popupcomments">
+                                                 <section class="${styles["comment-list"]} comment-list" id="CommentList">
+                                                     <!-- dynamic comments -->
+                                                  </section>
+                                             </div>
+                                             <div class="widget-area no-padding blank">
+                                                 <div class="status-upload">
+                                                   <form>
+                                                     <div class="row">
                                                         <div class="col-md-9">
-                                                        <textarea id="CommentTextBox" style="width:100%;" placeholder="Post Your Comment" ></textarea>
-                                                        </div>
+                                                            <textarea id="CommentTextBox" style="width:100%;" placeholder="Post Your Comment" ></textarea>
+                                                         </div>
                                                         <div class="col">
-                                                        <button type="button" id="SubmitComment" class="btn btn-success green" style="margin-top: 1.5%;"><i class="fa fa-share"></i> Share</button>
+                                                            <button type="button" id="SubmitComment" class="btn btn-success green" style="margin-top: 1.5%;"><i class="fa fa-share"></i> Share</button>
                                                         </div>
-                                                        </div>
-                                                        </form>
-                                                    </div> <!-- Status Upload  -->
-                                                   </div>   <!-- Widget Area -->
-                                                </div>
-                                          </div>
+                                                     </div>
+                                                   </form>
+                                                 </div> <!-- Status Upload  -->
+                                             </div>   <!-- Widget Area -->
+                                         </div>
+                                      </div>
                                  </div>
                             </div>
                          </div>
@@ -134,11 +134,11 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
                      <!-- Modal footer -->
                      <div class=" ${styles["modal-footer"]} modal-footer">
                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     </div>
-                </div>
-          </div>
-      </div>
-    <!-- Modal ends-->
+                 </div>
+                  </div>
+              </div>
+            </div>
+            <!-- Modal ends-->
         </div> <!-- container -->
       </div>   <!-- Podcast -->`;
     this.DisplayPodcast();
@@ -149,7 +149,7 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
   DisplayPodcast() {
 
     if (Environment.type === EnvironmentType.Local) {
-      this.domElement.querySelector('#Error').innerHTML = "Sorry this does not work in local workbench";
+      alert("Sorry this does not work in local workbench");
     }
     else {
       $(document).ready(function () {
@@ -199,29 +199,29 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
         PodcastUser = data.d.results[0].Title;
         PodcastId = data.d.results[0].Id;
         if (data.d.results[0].URL != null) {
-          $('#image').attr("src", data.d.results[0].URL.Url);
-          $('#popupimage').attr("src", data.d.results[0].URL.Url);
+          $('#Image').attr("src", data.d.results[0].URL.Url);
+          $('#PopUpImage').attr("src", data.d.results[0].URL.Url);
         }
         else {
-          $('#image').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
-          $('#popupimage').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
+          $('#Image').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
+          $('#PopUpImage').attr("src", "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg");
         }
         $('#Title').text(data.d.results[0].Title);
         if (data.d.results[0].Role != null) {
           $('#Role').text(data.d.results[0].Role);
-          $('#popuprole').text(data.d.results[0].Role);
+          $('#PopUpRole').text(data.d.results[0].Role);
         }
         else {
           $('#Role').text("Role is not available");
-          $('#popuprole').text("Role is not available");
+          $('#PopUpRole').text("Role is not available");
         }
         if (data.d.results[0].Description != null) {
           $('#Description').text((data.d.results[0].Description).substr(0, 50) + "...");
-          $('#popupdescription').text(data.d.results[0].Description);
+          $('#PopUpDescription').text(data.d.results[0].Description);
         }
         else {
           $('#Description').text("there is no Description for this person");
-          $('#popupdescription').text(" there is no Description for this person available in the list ");
+          $('#PopUpDescription').text(" there is no Description for this person available in the list ");
         }
         //assigning the data to the popup
         $('.modal-title').text(data.d.results[0].Title);
@@ -247,8 +247,8 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
       call.done(function (data, textStatus, jqXHR) {
         LikesCount = data.d.results.filter(value => value.UserLookup.Title === PodcastUser).length;  //likescount
         $('#ThumbsUp').text(LikesCount);
-        $('#popuprole').append("</br>");
-        $('#popuprole').append(`<i class="fa fa-thumbs-up"> ${LikesCount} </i>`);
+        $('#PopUpRole').append("</br>");
+        $('#PopUpRole').append(`<i class="fa fa-thumbs-up"> ${LikesCount} </i>`);
         IslikedBefore = data.d.results.filter(value => value.Author.Id === CurrentUserId).length;  //checking if the user liked the person before
       });
       call.fail(function (jqXHR, textStatus, errorThrown) {
@@ -310,9 +310,9 @@ export default class PodcastWebPart extends BaseClientSideWebPart<IPodcastWebPar
       //---------------dynamically adding comments--------------------//
 
       call.done(function (data, textStatus, jqXHR) {
-        $('#commentlist').empty();
+        $('#CommentList').empty();
         $.each(data.d.results, function (index, value) {
-          $('#commentlist').append(`
+          $('#CommentList').append(`
                   <article class="row">
                     <div class="col-md-10 col-sm-10">
                       <div class="panel panel-default arrow left">
